@@ -1,0 +1,151 @@
+:root {
+    background-color: pink;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    color: black;
+    --base-bg-color: rgb(252, 252, 252);
+    --select-bg-color: #efefef;
+    /* --secondary-bg-color: #d1d1d1; */
+    --default-text-color: #222;
+    --nav-text-color: #333;
+    --appbar-text-color: #ffffff;
+    --nav-bar-background: rgba(0, 75, 128);
+    --accent-color: rgb(0, 110, 188);
+    --input-label-color: rgba(0, 0, 0, 0.6);
+    --input-color: rgba(0, 0, 0, 0.87);
+    --secondary-text-color: #787878;
+    --history-bg-color: rgba(0, 110, 188, 0.2);
+    /* same as accent color but low opacity */
+    --private-bg-color: #eaeaea;
+    --lowkey-color: #c4c4c4;
+    --link-color: #4495ff;
+    --visited-link-color: #8103d5;
+    --user-last-update: #adf4c4;
+    --same-day: #0034ad;
+    --same-day-user-update: #4a56fe;
+    --offset-text-color: #fafafa;
+    --warning-text-color: #ff5050;
+    --bs-body-bg: pink;
+}
+
+html,
+body {
+    /* font-size: 16px; */
+    margin: 0;
+    padding: 0;
+    background-color: pink !important;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+    position: relative;
+    color: black;
+    overflow: hidden;
+}
+
+#hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    /* Ensure it doesn't block clicks on other elements */
+    /* z-index: 9999; */
+    /* Render above all other content */
+}
+
+.heart {
+    position: absolute;
+    color: darkred;
+    font-size: 24px;
+    animation: fall 15s linear infinite, spin 8s linear infinite;
+    opacity: 0.8;
+    top: 50px;
+    /* Start above the viewport */
+}
+
+#emoji-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    /* Ensure it doesn't block clicks on other elements */
+    /* z-index: 9999; */
+    /* Render above all other content */
+}
+
+.emoji {
+    position: absolute;
+    font-size: 24px;
+    animation: fall 15s linear infinite;
+    opacity: 0.8;
+    top: 50px;
+    /* Start above the viewport */
+}
+
+/* Create the falling animation */
+@keyframes fall {
+    0% {
+        top: -10%;
+    }
+
+    100% {
+        top: 110%;
+    }
+}
+
+/* Create the spinning animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.custom-btn {
+    width: 150px;
+    /* Adjust this value for desired button width */
+    text-align: center;
+    /* Ensure the text stays centered */
+}
+
+.mt-5 {
+    gap: 15px;
+    /* Add spacing between buttons */
+}
+
+@keyframes grow-shrink {
+
+    0%,
+    100% {
+        font-size: 100px;
+    }
+
+    50% {
+        font-size: 150px;
+    }
+}
+
+.catgif {
+    position: fixed;
+    bottom: 0;
+    right: 0%;
+    /* transform: translateX(-20%); */
+    height: 400px;
+    padding-right: 50px;
+}
+
+.catgif-left {
+    transform: scaleX(-1);
+    position: fixed;
+    bottom: 0;
+    left: 0%;
+    /* transform: translateX(-20%); */
+    height: 300px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+}

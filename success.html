@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collect your earnings</title>
+    <link rel="stylesheet" href="globals.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- <script type="text/javascript">
+        (function () {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init({
+                publicKey: "EMKOGF42g_dcfpnl7",
+            });
+        })();
+    </script> -->
+    <!-- <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('adventureForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // these IDs from the previous steps
+                emailjs.sendForm('service_1f506wn', 'template_ownvkuo', this)
+                    .then(() => {
+                        console.log('SUCCESS!');
+                    }, (error) => {
+                        console.log('FAILED...', error);
+                    });
+            });
+        }
+    </script> -->
+</head>
+
+<body>
+    <div id="emoji-container"></div>
+
+    <div class="container text-center mt-5">
+        <header>
+            <!-- <div style="display: flex; height: 200px; align-items: flex-start; justify-content: center;">
+
+                <span class='hearteyes-emoji'
+                    style='font-size:100px; animation: grow-shrink 0.8s infinite ease-in-out;'>&#128525;</span>
+            </div> -->
+            <h1> You've earned <br />
+                <span id="kissCounter">2</span> kisses
+            </h1>
+
+
+        </header>
+
+        <div class="mt-5" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <h4><i>What would you like to do for Valentine's Day?</i></h4>
+            <form id="adventureForm" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
+                <label>
+                    <input type="radio" name="response" value="Go on an adventure"> Go on an adventure
+                </label>
+                <label>
+                    <input type="radio" name="response" value="I don't care, as long as I'm with you">
+                    I don't care, as long as I'm with you
+                </label>
+                <label>
+                    <input type="radio" name="response" value="Nothing..."> Nothing...
+                </label>
+                <label>
+                    <input type="radio" name="response" value="Other" id="otherOption"> Other (please specify):
+                </label>
+                <textarea id="otherText" name="otherText"
+                    style="display: none; width: 300px; height: 100px; resize: none; padding: 10px; box-sizing: border-box;"
+                    placeholder="Lay it on me..."></textarea>
+                <button type="submit"
+                    style="align-self: center; margin-top: 10px; background-color: rgb(68, 255, 31);color: black"
+                    class="btn btn-primary">Submit</button>
+                <a href="index.html" class="btn btn-primary custom-btn" style="background-color: rgb(115, 48, 90);position: fixed;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    margin-bottom: 50px">Back
+                    to start</a>
+            </form>
+        </div>
+        <img class="catgif-left" src="mochi-mochi-peach-cat-tap-butt.gif"></img>
+        <img class="catgif" src="peach-and-goma-kiss.gif"></img>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script>
+    const emojiContainer = document.getElementById('emoji-container');
+    let count = 0;
+    function createEmoji() {
+        const emoji = document.createElement('span');
+        emoji.classList.add('emoji');
+        if (count < 2) {
+            emoji.innerHTML = '&#10084;';
+            count++;
+        } else {
+            emoji.innerHTML = '&#127881;';
+            count = 0;
+        }
+        // Set random horizontal position
+        emoji.style.left = Math.random() * 100 + 'vw';
+
+        // Randomize animation duration for falling and spinning
+        emoji.style.animationDuration = Math.random() * 5 + 5 + 's'; // Falling speed
+        emoji.style.fontSize = Math.random() * 50 + 20 + 'px'; // Random size
+        emoji.style.opacity = Math.random() * 0.5 + 0.5; // Random opacity
+
+        emojiContainer.appendChild(emoji);
+
+        // Remove the heart after animation ends
+        setTimeout(() => {
+            emoji.remove();
+        }, 10000); // Match the duration of the animations
+    }
+
+    // Generate hearts every 500ms
+    setInterval(createEmoji, 750);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const kissCounter = document.getElementById("kissCounter");
+        let count = 2; // Start at 2
+
+        // Increment the counter every 50ms (adjust as needed for speed)
+        setInterval(() => {
+            count++;
+            kissCounter.textContent = count.toLocaleString(); // Format with commas
+        }, 10);
+    });
+</script>
+<script>
+    emailjs.init("EMKOGF42g_dcfpnl7");
+
+    const otherOption = document.getElementById("otherOption");
+    const otherText = document.getElementById("otherText");
+    const form = document.getElementById("adventureForm");
+
+    // Show or hide the "Other" text input based on radio selection
+    form.addEventListener("change", () => {
+        if (otherOption.checked) {
+            otherText.style.display = "block";
+        } else {
+            otherText.style.display = "none";
+        }
+    });
+    console.log("emailJS", emailjs);
+
+    // Handle form submission
+    form.addEventListener("submit", (e) => {
+        e.preventDefault(); // Prevent page reload
+
+        // Get the selected response
+        let response = document.querySelector('input[name="response"]:checked').value;
+
+        // If "Other" is selected, use the text from the input box
+        if (response === "Other") {
+            response = otherText.value.trim();
+            if (!response) {
+                alert("Please specify your response in the textbox.");
+                return;
+            }
+        }
+        // Send the email via EmailJS
+        emailjs.send("service_1f506wn", 'template_ownvkuo', {
+            to_name: "Alex",
+            from_name: "Ivy",
+            message: response,
+        },
+            //{ publicKey: 'EMKOGF42g_dcfpnl7' }
+        ).then(
+            function () {
+                alert("Your response has been sent successfully!");
+                form.reset(); // Clear the form after submission
+                otherText.style.display = "none"; // Hide the "Other" text field
+            },
+            function (error) {
+                alert("Failed to send response. Please try again later.");
+                console.error("EmailJS Error:", error);
+            }
+        );
+    });
+</script>
+
+
+</html>

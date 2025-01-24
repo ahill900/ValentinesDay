@@ -1,23 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Pages Navigation</title>
+    <title>Valentine's Day</title>
+    <link rel="stylesheet" href="globals.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .custom-btn {
+            position: relative;
+        }
+
+        #button-container:hover #yes-btn {
+            font-size: 10rem;
+            padding: 0rem 20rem;
+        }
+    </style>
 </head>
+
 <body>
+    <div id="hearts-container"></div>
+
     <div class="container text-center mt-5">
         <header>
-            <h1>Main Header</h1>
-            <p class="lead">This is the subheader describing the purpose of the website.</p>
+            <i class="fa fa-heart" style="font-size:48px;color:red"></i>
+
+            <h1>Will you be my Valentine?</h1>
+            <p class="lead">You're obligated to say yes.</p>
         </header>
-        
-        <div class="mt-5">
-            <a href="next-page.html" class="btn btn-primary">Next</a>
+
+        <div id="button-container" class="mt-5"
+            style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <a id="yes-btn" href="yes.html" class="btn btn-primary custom-btn"
+                style="background-color: green; justify-content: center; display: flex; align-items: center; text-align: center; transition: all 1s linear">Yes!!</a>
+
+
+            <a id="no-btn" class="btn btn-primary custom-btn" style="background-color: rgb(128, 0, 0);">No</a>
         </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const heartsContainer = document.getElementById('hearts-container');
+
+        function createHeart() {
+            const heart = document.createElement('i');
+            heart.classList.add('fa', 'fa-heart', 'heart');
+
+            // Set random horizontal position
+            heart.style.left = Math.random() * 100 + 'vw';
+
+            // Randomize animation duration for falling and spinning
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's'; // Falling speed
+            heart.style.fontSize = Math.random() * 50 + 20 + 'px'; // Random size
+            heart.style.opacity = Math.random() * 0.5 + 0.5; // Random opacity
+
+            heartsContainer.appendChild(heart);
+
+            // Remove the heart after animation ends
+            setTimeout(() => {
+                heart.remove();
+            }, 10000); // Match the duration of the animations
+        }
+
+        // Generate hearts every 500ms
+        setInterval(createHeart, 750);
+
+        // Logic for the "No" button
+        const noBtn = document.getElementById('no-btn');
+        let clickCount = 0;
+
+        noBtn.addEventListener('click', () => {
+            clickCount++;
+
+            if (clickCount === 3) {
+                window.location.href = 'no.html';
+            } else {
+                // Move the button to a random position
+                const randomX = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+                const randomY = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+            }
+        });
+        const container = document.getElementById('button-container');
+        //window.addEventListener('load', 
+        container.addEventListener('hover', () => {
+            const yesBtn = document.getElementById('yes-btn');
+            yesBtn.style.fontSize = '10rem';
+            yesBtn.style.padding = '0rem 20rem';
+        });
+    </script>
 </body>
+
 </html>
